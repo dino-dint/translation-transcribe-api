@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+  khmer-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: khmer-api:latest
+    container_name: khmer_transcribe_api
+    
+    # Expose port on all interfaces (0.0.0.0:8000)
+    ports:
+      - "0.0.0.0:8000:8000"
+    
+    # Environment variables
+    env_file:
+      - .env
+    
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+    
+    # Volumes for model caching (persist models between restarts)
+    volumes:
+      - whisper_cache:/root/.cache/whisper
+      
+    
+    # Auto-restart policy
+    restart: unless-stopped
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    # Logging
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  whisper_cache:
+    driver: local
+  

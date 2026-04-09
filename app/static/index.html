@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Khmer ↔ English AI</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;600&family=DM+Mono:wght@400;500&display=swap');
+  :root {
+    --bg: #0d0f14; --surface: #161a22; --border: #252b38;
+    --accent: #e8a040; --accent2: #5ba4cf; --text: #d4c9b8; --muted: #5a6275;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Kantumruy Pro', sans-serif; min-height: 100vh; padding: 2rem; }
+  h1 { font-size: 1.8rem; font-weight: 600; color: var(--accent); letter-spacing: -0.02em; margin-bottom: 0.3rem; }
+  .sub { color: var(--muted); font-size: 0.85rem; font-family: 'DM Mono', monospace; margin-bottom: 2.5rem; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 1200px; }
+  @media(max-width:700px){ .grid { grid-template-columns: 1fr; } }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+  .card h2 { font-size: 1rem; color: var(--accent2); margin-bottom: 1rem; font-family: 'DM Mono', monospace; }
+  label { display: block; font-size: 0.78rem; color: var(--muted); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  input, select, textarea {
+    width: 100%; background: var(--bg); border: 1px solid var(--border); color: var(--text);
+    padding: 0.6rem 0.8rem; border-radius: 8px; font-family: inherit; font-size: 0.9rem;
+    margin-bottom: 1rem; outline: none; transition: border 0.2s;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--accent); }
+  textarea { resize: vertical; min-height: 80px; }
+  button {
+    background: var(--accent); color: #0d0f14; border: none; padding: 0.6rem 1.4rem;
+    border-radius: 8px; font-weight: 600; font-family: inherit; cursor: pointer;
+    font-size: 0.9rem; transition: opacity 0.2s;
+  }
+  button:hover { opacity: 0.85; }
+  .result { margin-top: 1rem; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem; font-size: 0.88rem; white-space: pre-wrap; min-height: 60px; color: #a8c8e8; font-family: 'DM Mono', monospace; }
+  .tag { display: inline-block; background: #1e2530; color: var(--muted); font-size: 0.7rem; padding: 0.2rem 0.5rem; border-radius: 4px; margin-bottom: 0.5rem; font-family: 'DM Mono', monospace; }
+  .model-row { display: flex; gap: 0.5rem; align-items: flex-end; }
+  .model-row input { margin-bottom: 0; flex: 1; }
+  .full { grid-column: 1 / -1; }
+  .section-label { font-size: 0.75rem; color: var(--accent2); text-transform: uppercase; margin-top: 1.2rem; margin-bottom: 0.6rem; font-weight: 600; }
+  .translation-output { margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<h1>🇰🇭 Khmer ↔ English AI</h1>
+<p class="sub">transcription · translation · model config</p>
+
+<div class="grid">
+
+  <!-- TRANSCRIBE & AUTO-TRANSLATE -->
+  <div class="card">
+    <h2>Transcribe + Auto-Translate</h2>
+    <label>Audio File (wav, mp3, m4a…)</label>
+    <input type="file" id="audioFile" accept="audio/*"/>
+    <label>Whisper Model Override (optional)</label>
+    <select id="whisperOverride">
+      <option value="">— use server default —</option>
+      <option value="tiny">tiny (fastest)</option>
+      <option value="base">base</option>
+      <option value="small">small</option>
+      <option value="medium">medium</option>
+      <option value="large">large (best)</option>
+    </select>
+    <button onclick="transcribeAndTranslate()">Transcribe & Translate</button>
+    <div class="result" id="transcribeResult">Upload a file and click Transcribe & Translate…</div>
+    
+    <div class="translation-output" id="translationSection" style="display: none;">
+      <div class="section-label">Auto-Translated:</div>
+      <div class="result" id="autoTranslationResult" style="margin-top: 0.5rem;"></div>
+    </div>
+  </div>
+
+  <!-- MANUAL TRANSLATE -->
+  <div class="card">
+    <h2>Manual Translate</h2>
+    <label>Text to Translate</label>
+    <textarea id="translateText" placeholder="Enter English or Khmer text…"></textarea>
+    <label>Direction</label>
+    <select id="direction">
+      <option value="en_to_km">English → Khmer</option>
+      <option value="km_to_en">Khmer → English</option>
+    </select>
+    <button id="translateBtn">Translate</button>
+    <div class="result" id="translateResult">Result will appear here…</div>
+  </div>
+
+  <!-- MODEL CONFIG -->
+  <div class="card full">
+    <h2>Model Configuration</h2>
+    <p style="font-size:0.8rem;color:var(--muted);margin-bottom:1rem;">
+      Change models at runtime — no restart needed. Leave blank to keep current.
+    </p>
+    <div style="display:grid;grid-template-columns:1fr;gap:1rem;max-width:300px;">
+      <div>
+        <label>Whisper Model</label>
+        <select id="cfgWhisper">
+          <option value="">— keep current —</option>
+          <option value="tiny">tiny (fastest)</option>
+          <option value="base">base</option>
+          <option value="small">small</option>
+          <option value="medium">medium</option>
+          <option value="large">large (best)</option>
+        </select>
+      </div>
+    </div>
+    <button onclick="updateModels()">Update Models</button>
+    <button style="background:#252b38;color:var(--text);margin-left:0.5rem;" onclick="fetchModels()">Refresh Status</button>
+    <div class="result" id="modelResult">Click 'Refresh Status' to see current models…</div>
+  </div>
+
+</div>
+
+<script>
+const base = '';  
+
+// ===== TRANSCRIBE & AUTO-TRANSLATE =====
+async function transcribeAndTranslate() {
+  const file = document.getElementById('audioFile').files[0];
+  if (!file) return alert('Please select an audio file.');
+  
+  const model = document.getElementById('whisperOverride').value;
+  const fd = new FormData();
+  fd.append('file', file);
+  if (model) fd.append('model', model);
+  
+  const transcribeResultBox = document.getElementById('transcribeResult');
+  const translationSection = document.getElementById('translationSection');
+  const autoTranslationBox = document.getElementById('autoTranslationResult');
+  
+  transcribeResultBox.textContent = '⏳ Transcribing…';
+  translationSection.style.display = 'none';
+  
+  try {
+    // Step 1: Transcribe
+    const transcribeRes = await fetch(`${base}/transcribe/`, { 
+      method: 'POST', 
+      body: fd 
+    });
+    const transcribeData = await transcribeRes.json();
+    
+    const transcript = transcribeData.transcript;
+    const detectedLanguage = transcribeData.detected_language;
+    
+    transcribeResultBox.textContent = `Language: ${detectedLanguage}\n\n${transcript}`;
+    
+    // Step 2: Auto-translate
+    autoTranslationBox.textContent = '⏳ Translating…';
+    translationSection.style.display = 'block';
+    
+    const translateRes = await fetch(`${base}/transcribe-and-translate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        transcript: transcript,
+        detected_language: detectedLanguage
+      })
+    });
+    
+    const translateData = await translateRes.json();
+    autoTranslationBox.textContent = `${translateData.translation}`;
+    
+  } catch(e) { 
+    transcribeResultBox.textContent = '❌ Error: ' + e;
+    translationSection.style.display = 'none';
+  }
+}
+
+// ===== MANUAL TRANSLATE FUNCTION =====
+async function translate() {
+  const text = document.getElementById('translateText').value.trim();
+  const direction = document.getElementById('direction').value;
+  const resultBox = document.getElementById('translateResult');
+
+  if (!text) {
+    alert('Enter text to translate.');
+    return;
+  }
+
+  resultBox.textContent = '⏳ Translating…';
+  console.log('Translating:', { text, direction });
+
+  try {
+    const url = `${base}/translate`;
+    console.log('Fetching from:', url);
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text, direction })
+    });
+
+    console.log('Response status:', response.status);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      resultBox.textContent = `❌ Error ${response.status}: ${errorText}`;
+      console.error('Server error:', errorText);
+      return;
+    }
+
+    const data = await response.json();
+    console.log('Translation result:', data);
+    resultBox.textContent = data.translated || data.text || '(empty response)';
+
+  } catch (error) {
+    resultBox.textContent = `❌ Error: ${error.message}\n\nMake sure backend is running at ${base}`;
+    console.error('Translate error:', error);
+  }
+}
+
+async function fetchModels() {
+  try {
+    const r = await fetch(`${base}/models`);
+    const d = await r.json();
+    document.getElementById('modelResult').textContent = JSON.stringify(d, null, 2);
+  } catch(e) { document.getElementById('modelResult').textContent = '❌ ' + e; }
+}
+
+async function updateModels() {
+  const w = document.getElementById('cfgWhisper').value;
+  if (!w) return alert('Please select a Whisper model to update.');
+  try {
+    const r = await fetch(`${base}/models`, {
+      method: 'PATCH',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ whisper_model: w })
+    });
+    const d = await r.json();
+    document.getElementById('modelResult').textContent = '✅ Updated:\n' + JSON.stringify(d, null, 2);
+  } catch(e) { document.getElementById('modelResult').textContent = '❌ ' + e; }
+}
+
+document.getElementById('translateBtn').addEventListener('click', translate);
+
+fetchModels();
+</script>
+</body>
+</html>
