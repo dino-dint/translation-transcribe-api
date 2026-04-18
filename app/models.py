@@ -1,3 +1,4 @@
+# app/models.py
 from pydantic import BaseModel
 from typing import Optional
 
@@ -15,7 +16,14 @@ class TranslateResponse(BaseModel):
     direction: str
 
 class ModelUpdateRequest(BaseModel):
-    whisper_model: Optional[str] = None  # tiny | base | small | medium | large
+    whisper_model: Optional[str] = None
+    translation_provider: Optional[str] = None
+    openai_model: Optional[str] = None
+    gemini_model: Optional[str] = None      
 
 class ModelStatusResponse(BaseModel):
     whisper_model: str
+    translation_provider: str
+    openai_model: str
+    gemini_model: str       
+                 

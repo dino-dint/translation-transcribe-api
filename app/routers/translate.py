@@ -48,7 +48,13 @@ def transcribe_and_translate(req: dict):
 
 @router.get("/models", response_model=ModelStatusResponse)
 def get_models():
-    return ModelStatusResponse(whisper_model=settings.WHISPER_MODEL)
+    return ModelStatusResponse(
+        whisper_model=settings.WHISPER_MODEL,
+        translation_provider=settings.TRANSLATION_PROVIDER,
+        openai_model=settings.OPENAI_MODEL,
+        gemini_model=settings.GEMINI_MODEL, 
+    )
+                                            
 
 
 @router.patch("/models", response_model=ModelStatusResponse)
@@ -58,4 +64,15 @@ def update_models(req: ModelUpdateRequest):
     """
     if req.whisper_model:
         settings.WHISPER_MODEL = req.whisper_model
-    return ModelStatusResponse(whisper_model=settings.WHISPER_MODEL)
+    if req.translation_provider:
+        settings.TRANSLATION_PROVIDER = req.translation_provider
+    if req.openai_model:
+        settings.OPENAI_MODEL = req.openai_model
+    if req.gemini_model:                      
+        settings.GEMINI_MODEL = req.gemini_model
+    return ModelStatusResponse(
+        whisper_model=settings.WHISPER_MODEL,
+        translation_provider=settings.TRANSLATION_PROVIDER,
+        openai_model=settings.OPENAI_MODEL,
+        gemini_model=settings.GEMINI_MODEL,
+    )
