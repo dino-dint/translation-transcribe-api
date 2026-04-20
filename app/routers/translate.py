@@ -1,78 +1,125 @@
-from fastapi import APIRouter, HTTPException
-from app.models import (
-    TranslateRequest, TranslateResponse,
-    ModelUpdateRequest, ModelStatusResponse
-)
-from app.services.translation_service import translate_text
-from app.config import settings
+# from fastapi import APIRouter, HTTPException
+# from app.models import (
+#     TranslateRequest, TranslateResponse,
+#     ModelUpdateRequest, ModelStatusResponse
+# )
+# from app.services.translation_service import translate_text
+# from app.config import settings
 
-router = APIRouter(tags=["Translation & Config"])
+# router = APIRouter(tags=["Translation & Config"])
 
-@router.post("/translate", response_model=TranslateResponse)
-def translate(req: TranslateRequest):
-    if req.direction not in ("en_to_km", "km_to_en"):
-        raise HTTPException(status_code=400, detail="direction must be 'en_to_km' or 'km_to_en'")
-    translated = translate_text(req.text, req.direction)
-    return TranslateResponse(original=req.text, translated=translated, direction=req.direction)
+# @router.post("/translate", response_model=TranslateResponse)
+# def translate(req: TranslateRequest):
+#     if req.direction not in ("en_to_km", "km_to_en"):
+#         raise HTTPException(status_code=400, detail="direction must be 'en_to_km' or 'km_to_en'")
+#     translated = translate_text(req.text, req.direction)
+#     return TranslateResponse(original=req.text, translated=translated, direction=req.direction)
 
-# New combined endpoint: auto-translate based on detected language
-@router.post("/transcribe-and-translate")
-def transcribe_and_translate(req: dict):
-    """
-    Input: { "transcript": "...", "detected_language": "en" or "km" }
-    Output: { "transcript": "...", "detected_language": "...", "translation": "..." }
-    Automatically translates to the opposite language based on detected language.
-    """
-    transcript = req.get("transcript", "").strip()
-    detected_lang = req.get("detected_language", "unknown").lower()
+# # New combined endpoint: auto-translate based on detected language
+# @router.post("/transcribe-and-translate")
+# def transcribe_and_translate(req: dict):
+#     """
+#     Input: { "transcript": "...", "detected_language": "en" or "km" }
+#     Output: { "transcript": "...", "detected_language": "...", "translation": "..." }
+#     Automatically translates to the opposite language based on detected language.
+#     """
+#     transcript = req.get("transcript", "").strip()
+#     detected_lang = req.get("detected_language", "unknown").lower()
     
-    if not transcript:
-        raise HTTPException(status_code=400, detail="transcript cannot be empty")
+#     if not transcript:
+#         raise HTTPException(status_code=400, detail="transcript cannot be empty")
     
-    # Determine translation direction based on detected language
-    if detected_lang == "en":
-        direction = "en_to_km"  # English -> Khmer
-    elif detected_lang == "km":
-        direction = "km_to_en"  # Khmer -> English
-    else:
-        raise HTTPException(status_code=400, detail=f"Unsupported language: {detected_lang}")
+#     # Determine translation direction based on detected language
+#     if detected_lang == "en":
+#         direction = "en_to_km"  # English -> Khmer
+#     elif detected_lang == "km":
+#         direction = "km_to_en"  # Khmer -> English
+#     else:
+#         raise HTTPException(status_code=400, detail=f"Unsupported language: {detected_lang}")
     
-    translated = translate_text(transcript, direction)
+#     translated = translate_text(transcript, direction)
     
-    return {
-        "transcript": transcript,
-        "detected_language": detected_lang,
-        "translation": translated,
-        "translation_direction": direction
-    }
+#     return {
+#         "transcript": transcript,
+#         "detected_language": detected_lang,
+#         "translation": translated,
+#         "translation_direction": direction
+#     }
 
-@router.get("/models", response_model=ModelStatusResponse)
-def get_models():
-    return ModelStatusResponse(
-        whisper_model=settings.WHISPER_MODEL,
-        translation_provider=settings.TRANSLATION_PROVIDER,
-        openai_model=settings.OPENAI_MODEL,
-        gemini_model=settings.GEMINI_MODEL, 
-    )
+# @router.get("/models", response_model=ModelStatusResponse)
+# def get_models():
+#     return ModelStatusResponse(
+#         whisper_model=settings.WHISPER_MODEL,
+#         translation_provider=settings.TRANSLATION_PROVIDER,
+#         openai_model=settings.OPENAI_MODEL,
+#         gemini_model=settings.GEMINI_MODEL, 
+#     )
                                             
 
 
-@router.patch("/models", response_model=ModelStatusResponse)
-def update_models(req: ModelUpdateRequest):
+# @router.patch("/models", response_model=ModelStatusResponse)
+# def update_models(req: ModelUpdateRequest):
+#     """
+#     Whisper options: tiny | base | small | medium | large
+#     """
+#     if req.whisper_model:
+#         settings.WHISPER_MODEL = req.whisper_model
+#     if req.translation_provider:
+#         settings.TRANSLATION_PROVIDER = req.translation_provider
+#     if req.openai_model:
+#         settings.OPENAI_MODEL = req.openai_model
+#     if req.gemini_model:                      
+#         settings.GEMINI_MODEL = req.gemini_model
+#     return ModelStatusResponse(
+#         whisper_model=settings.WHISPER_MODEL,
+#         translation_provider=settings.TRANSLATION_PROVIDER,
+#         openai_model=settings.OPENAI_MODEL,
+#         gemini_model=settings.GEMINI_MODEL,
+#     )
+
+
+from fastapi import APIRouter, HTTPException
+from app.models import TranslateRequest, TranslateResponse, ModelStatusResponse, ModelUpdateRequest
+from app.services.translation_service import translate_text, get_translation_models
+from app.config import settings
+
+router = APIRouter(tags=["Translation"])
+
+@router.post("/translate", response_model=TranslateResponse)
+def translate(req: TranslateRequest):
     """
-    Whisper options: tiny | base | small | medium | large
+    Translate text between Khmer and English using paid API
+    
+    Providers: openai, gemini
+    Direction: "en_to_km" (English to Khmer) or "km_to_en" (Khmer to English)
     """
-    if req.whisper_model:
-        settings.WHISPER_MODEL = req.whisper_model
+    if req.direction not in ("en_to_km", "km_to_en"):
+        raise HTTPException(status_code=400, detail="direction must be 'en_to_km' or 'km_to_en'")
+    
+    result = translate_text(req.text, req.direction)
+    return TranslateResponse(**result)
+
+@router.get("/translate/models")
+def get_models():
+    """Get current translation configuration"""
+    return get_translation_models()
+
+@router.patch("/translate/models", response_model=ModelStatusResponse)
+def update_translation_models(req: ModelUpdateRequest):
+    """Update translation provider and model"""
+    
     if req.translation_provider:
-        settings.TRANSLATION_PROVIDER = req.translation_provider
-    if req.openai_model:
-        settings.OPENAI_MODEL = req.openai_model
-    if req.gemini_model:                      
-        settings.GEMINI_MODEL = req.gemini_model
+        settings.translation_provider = req.translation_provider
+    
+    if req.openai_gpt_model:
+        settings.openai_gpt_model = req.openai_gpt_model
+    
+    if req.gemini_model:
+        settings.gemini_model = req.gemini_model
+    
     return ModelStatusResponse(
-        whisper_model=settings.WHISPER_MODEL,
-        translation_provider=settings.TRANSLATION_PROVIDER,
-        openai_model=settings.OPENAI_MODEL,
-        gemini_model=settings.GEMINI_MODEL,
+        translation_provider=settings.translation_provider,
+        translation_model=settings.openai_gpt_model 
+            if settings.translation_provider == "openai" 
+            else settings.gemini_model
     )

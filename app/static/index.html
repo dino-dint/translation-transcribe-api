@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -9,223 +9,92 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0c0e13;
-  --s1:#13161e;
-  --s2:#1a1e28;
-  --b1:#232839;
-  --b2:#2e3548;
-  --gold:#c9933a;
-  --gold2:#e8b96a;
-  --teal:#3fa8a0;
-  --blue:#5b8fd4;
-  --txt:#cfc9bc;
-  --muted:#606880;
-  --muted2:#8892a8;
-  --green:#3ecb8a;
-  --red:#d96060;
-  --r:10px;
+  --bg:#0c0e13;--s1:#13161e;--s2:#1a1e28;--b1:#232839;--b2:#2e3548;
+  --gold:#c9933a;--gold2:#e8b96a;--teal:#3fa8a0;--blue:#5b8fd4;
+  --txt:#cfc9bc;--muted:#606880;--muted2:#8892a8;
+  --green:#3ecb8a;--red:#d96060;--r:10px;
 }
-body{
-  background:var(--bg);
-  color:var(--txt);
-  font-family:'Sora',sans-serif;
-  padding:1.5rem;
-  min-height:100vh;
-}
-
-/* ── HEADER ── */
+body{background:var(--bg);color:var(--txt);font-family:'Sora',sans-serif;padding:1.5rem;min-height:100vh}
 .hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:2rem;gap:1rem;flex-wrap:wrap}
 .hdr-left h1{font-size:1.5rem;font-weight:700;letter-spacing:-0.03em;color:var(--gold2)}
 .hdr-left h1 span{color:var(--teal)}
 .hdr-left p{font-size:0.72rem;font-family:'IBM Plex Mono',monospace;color:var(--muted);margin-top:0.2rem}
-.status-pill{
-  display:flex;align-items:center;gap:0.4rem;
-  background:var(--s2);border:1px solid var(--b1);border-radius:20px;
-  padding:0.3rem 0.8rem;font-size:0.72rem;
-  font-family:'IBM Plex Mono',monospace;color:var(--green);
-  white-space:nowrap;
-}
+.status-pill{display:flex;align-items:center;gap:0.4rem;background:var(--s2);border:1px solid var(--b1);border-radius:20px;padding:0.3rem 0.8rem;font-size:0.72rem;font-family:'IBM Plex Mono',monospace;color:var(--green);white-space:nowrap}
 .status-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-
-/* ── LAYOUT ── */
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;max-width:1200px;margin:0 auto}
 .full{grid-column:1/-1}
 @media(max-width:720px){.grid{grid-template-columns:1fr}}
-
-/* ── CARD ── */
 .card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);overflow:hidden}
-.card-hdr{
-  display:flex;align-items:center;gap:0.6rem;
-  padding:1rem 1.25rem 0.75rem;
-  border-bottom:1px solid var(--b1);
-}
-.card-icon{
-  width:28px;height:28px;border-radius:7px;
-  display:flex;align-items:center;justify-content:center;font-size:14px;
-  flex-shrink:0;
-}
+.card-hdr{display:flex;align-items:center;gap:0.6rem;padding:1rem 1.25rem 0.75rem;border-bottom:1px solid var(--b1)}
+.card-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
 .ic-teal{background:rgba(63,168,160,0.15);color:var(--teal)}
 .ic-gold{background:rgba(201,147,58,0.15);color:var(--gold2)}
 .ic-blue{background:rgba(91,143,212,0.15);color:var(--blue)}
 .card-title{font-size:0.82rem;font-weight:600;color:var(--txt);letter-spacing:0.01em}
 .card-body{padding:1.25rem}
-
-/* ── FORM ELEMENTS ── */
-label{
-  display:block;font-size:0.68rem;
-  font-family:'IBM Plex Mono',monospace;color:var(--muted);
-  text-transform:uppercase;letter-spacing:0.07em;
-  margin-bottom:0.35rem;margin-top:0.9rem;
-}
+label{display:block;font-size:0.68rem;font-family:'IBM Plex Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.35rem;margin-top:0.9rem}
 label:first-of-type{margin-top:0}
-select,textarea,input[type="text"]{
-  width:100%;background:var(--bg);border:1px solid var(--b2);color:var(--txt);
-  padding:0.55rem 0.75rem;border-radius:8px;
-  font-family:'Sora',sans-serif;font-size:0.83rem;
-  outline:none;transition:border 0.15s,box-shadow 0.15s;
-}
-select{
-  cursor:pointer;appearance:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath fill='%23606880' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 0.75rem center;
-  padding-right:2rem;
-}
+select,textarea,input[type="text"],input[type="password"]{width:100%;background:var(--bg);border:1px solid var(--b2);color:var(--txt);padding:0.55rem 0.75rem;border-radius:8px;font-family:'Sora',sans-serif;font-size:0.83rem;outline:none;transition:border 0.15s,box-shadow 0.15s}
+select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath fill='%23606880' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.75rem center;padding-right:2rem}
 textarea{resize:vertical;min-height:90px;line-height:1.5}
-select:focus,textarea:focus,input[type="text"]:focus{
-  border-color:var(--gold);
-  box-shadow:0 0 0 3px rgba(201,147,58,0.12);
-}
-
-/* ── FILE DROP ZONE ── */
-.file-drop{
-  border:1.5px dashed var(--b2);border-radius:8px;
-  padding:1.5rem;text-align:center;cursor:pointer;
-  transition:border 0.15s,background 0.15s;
-  position:relative;overflow:hidden;
-}
+select:focus,textarea:focus,input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,147,58,0.12)}
+.file-drop{border:1.5px dashed var(--b2);border-radius:8px;padding:1.5rem;text-align:center;cursor:pointer;transition:border 0.15s,background 0.15s;position:relative;overflow:hidden}
 .file-drop:hover,.file-drop.over{border-color:var(--gold);background:rgba(201,147,58,0.04)}
 .file-drop-icon{font-size:1.6rem;margin-bottom:0.5rem;display:block}
 .file-drop p{font-size:0.78rem;color:var(--muted2);line-height:1.6}
 .file-drop p strong{color:var(--gold2);font-weight:600}
 .file-drop p small{font-size:0.68rem;color:var(--muted);font-family:'IBM Plex Mono',monospace;display:block;margin-top:0.2rem}
-.file-drop input[type="file"]{
-  position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;
-}
-.file-info{
-  margin-top:0.6rem;font-size:0.75rem;
-  font-family:'IBM Plex Mono',monospace;color:var(--gold2);
-  display:none;align-items:center;gap:0.4rem;
-}
-
-/* ── BUTTONS ── */
+.file-drop input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.file-info{margin-top:0.6rem;font-size:0.75rem;font-family:'IBM Plex Mono',monospace;color:var(--gold2);display:none;align-items:center;gap:0.4rem}
 .btn-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:1rem}
-.btn{
-  padding:0.55rem 1.25rem;border-radius:8px;
-  font-weight:600;font-family:'Sora',sans-serif;font-size:0.82rem;
-  cursor:pointer;transition:opacity 0.15s,transform 0.1s;border:none;
-  display:inline-flex;align-items:center;gap:0.4rem;
-}
+.btn{padding:0.55rem 1.25rem;border-radius:8px;font-weight:600;font-family:'Sora',sans-serif;font-size:0.82rem;cursor:pointer;transition:opacity 0.15s,transform 0.1s;border:none;display:inline-flex;align-items:center;gap:0.4rem}
 .btn:active:not(:disabled){transform:scale(0.97)}
 .btn:disabled{opacity:0.4;cursor:not-allowed}
 .btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0c0e13}
 .btn-primary:hover:not(:disabled){opacity:0.88}
 .btn-ghost{background:var(--s2);color:var(--txt);border:1px solid var(--b2)}
 .btn-ghost:hover:not(:disabled){border-color:var(--b1);background:var(--b1)}
-
-/* ── DIVIDER + SECTION LABEL ── */
 .divider{border:none;border-top:1px solid var(--b1);margin:1.2rem 0}
-.lbl-section{
-  font-size:0.65rem;font-family:'IBM Plex Mono',monospace;
-  text-transform:uppercase;letter-spacing:0.09em;color:var(--muted);
-  margin-bottom:0.5rem;
-}
-
-/* ── RESULT BOX ── */
-.result-box{
-  position:relative;background:var(--bg);border:1px solid var(--b1);
-  border-radius:8px;padding:0.8rem 0.9rem;
-  font-size:0.8rem;font-family:'IBM Plex Mono',monospace;
-  min-height:64px;white-space:pre-wrap;line-height:1.6;color:var(--muted);
-  transition:border 0.2s,color 0.2s;
-}
+.lbl-section{font-size:0.65rem;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:0.09em;color:var(--muted);margin-bottom:0.5rem}
+.result-box{position:relative;background:var(--bg);border:1px solid var(--b1);border-radius:8px;padding:0.8rem 0.9rem;font-size:0.8rem;font-family:'IBM Plex Mono',monospace;min-height:64px;white-space:pre-wrap;line-height:1.6;color:var(--muted);transition:border 0.2s,color 0.2s}
 .result-box.loading{color:var(--gold2);border-color:rgba(201,147,58,0.3)}
 .result-box.success{color:#9fc8e8;border-color:rgba(91,143,212,0.25)}
 .result-box.error{color:var(--red);border-color:rgba(217,96,96,0.25)}
-.copy-btn{
-  position:absolute;top:0.4rem;right:0.4rem;
-  background:var(--b2);border:1px solid var(--b1);color:var(--muted2);
-  font-size:0.62rem;padding:0.15rem 0.45rem;border-radius:5px;
-  cursor:pointer;font-family:'IBM Plex Mono',monospace;
-  display:none;transition:color 0.15s;
-}
-.result-box.success .copy-btn{display:block}
+.copy-btn{position:absolute;top:0.4rem;right:0.4rem;background:var(--b2);border:1px solid var(--b1);color:var(--muted2);font-size:0.62rem;padding:0.15rem 0.45rem;border-radius:5px;cursor:pointer;font-family:'IBM Plex Mono',monospace;display:none;transition:color 0.15s}
+.result-box.success .copy-btn,.result-box.error .copy-btn{display:block}
 .copy-btn:hover{color:var(--txt)}
-
-/* ── DIRECTION TOGGLE ── */
 .dir-toggle{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:0.6rem;margin:0.5rem 0 0}
 .dir-toggle select{font-size:0.8rem;text-align:center;padding:0.5rem 0.5rem}
-.swap-btn{
-  background:var(--s2);border:1px solid var(--b2);color:var(--muted2);
-  width:34px;height:34px;border-radius:8px;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.1rem;transition:color 0.15s,border 0.15s;flex-shrink:0;
-}
+.swap-btn{background:var(--s2);border:1px solid var(--b2);color:var(--muted2);width:34px;height:34px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:color 0.15s,border 0.15s;flex-shrink:0}
 .swap-btn:hover{color:var(--gold2);border-color:var(--gold)}
-
-/* ── CONFIG TABS ── */
-.tab-row{display:flex;gap:0.25rem;border-bottom:1px solid var(--b1);margin-bottom:1.25rem;overflow-x:auto}
-.tab{
-  padding:0.55rem 1rem;font-size:0.78rem;
-  font-family:'IBM Plex Mono',monospace;color:var(--muted);
-  cursor:pointer;border:none;background:none;
-  border-bottom:2px solid transparent;margin-bottom:-1px;
-  transition:color 0.15s;white-space:nowrap;
-}
-.tab.active{color:var(--gold2);border-bottom-color:var(--gold)}
-.tab:hover:not(.active){color:var(--txt)}
-
-/* ── STATUS CARDS ── */
-.cfg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.75rem;margin-bottom:1rem}
+.cfg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0.75rem;margin-bottom:1rem}
 .cfg-card{background:var(--bg);border:1px solid var(--b1);border-radius:8px;padding:0.75rem}
 .cfg-card .lbl{font-size:0.64rem;font-family:'IBM Plex Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.35rem}
-.cfg-card .val{font-size:0.9rem;font-weight:600;color:var(--gold2)}
-
-/* HINT BOX */
-.hint{
-  font-size:0.73rem;color:var(--muted2);line-height:1.7;
-  margin-bottom:1rem;padding:0.7rem 0.85rem;
-  background:rgba(91,143,212,0.06);
-  border:1px solid rgba(91,143,212,0.15);border-radius:8px;
-}
-.hint code{
-  color:var(--gold2);font-family:'IBM Plex Mono',monospace;font-size:0.7rem;
-  background:rgba(201,147,58,0.1);padding:0.1rem 0.3rem;border-radius:4px;
-}
-
-/*RESPONSIVE 2-COL*/
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-@media(max-width:560px){.row2{grid-template-columns:1fr}}
+.cfg-card .val{font-size:0.85rem;font-weight:600;color:var(--gold2)}
+.hint{font-size:0.73rem;color:var(--muted2);line-height:1.7;margin-bottom:1rem;padding:0.7rem 0.85rem;background:rgba(91,143,212,0.06);border:1px solid rgba(91,143,212,0.15);border-radius:8px}
+.hint code{color:var(--gold2);font-family:'IBM Plex Mono',monospace;font-size:0.7rem;background:rgba(201,147,58,0.1);padding:0.1rem 0.3rem;border-radius:4px}
+.warn{font-size:0.73rem;color:#e8c06a;line-height:1.7;margin-bottom:0.75rem;padding:0.7rem 0.85rem;background:rgba(232,185,106,0.06);border:1px solid rgba(232,185,106,0.2);border-radius:8px}
+.key-row{display:flex;gap:0.5rem;align-items:center}
+.key-row input{flex:1}
+.key-toggle{background:var(--s2);border:1px solid var(--b2);color:var(--muted2);padding:0.5rem 0.75rem;border-radius:8px;cursor:pointer;font-size:0.75rem;font-family:'IBM Plex Mono',monospace;white-space:nowrap;transition:color 0.15s}
+.key-toggle:hover{color:var(--txt)}
+.model-note{font-size:0.7rem;font-family:'IBM Plex Mono',monospace;color:var(--muted);margin-top:0.3rem;line-height:1.5}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="hdr">
   <div class="hdr-left">
     <h1>🇰🇭 Khmer <span>↔</span> English AI</h1>
-    <p>transcription · translation · model config</p>
+    <p>transcription · translation · direct api calls</p>
   </div>
-  <div class="status-pill">
-    <span class="status-dot"></span>api connected
-  </div>
+  <div class="status-pill"><span class="status-dot"></span>ready</div>
 </div>
 
 <div class="grid">
 
-  <!-- 
-       CARD 1 — TRANSCRIBE + AUTO-TRANSLATE
-   -->
+  <!--  CARD 1: TRANSCRIBE + AUTO-TRANSLATE  -->
   <div class="card">
     <div class="card-hdr">
       <div class="card-icon ic-teal">🎙</div>
@@ -233,7 +102,6 @@ select:focus,textarea:focus,input[type="text"]:focus{
     </div>
     <div class="card-body">
 
-      <!-- Drop Zone -->
       <div class="file-drop" id="dropZone">
         <span class="file-drop-icon">🎵</span>
         <p><strong>Drop audio here</strong> or click to browse</p>
@@ -242,15 +110,19 @@ select:focus,textarea:focus,input[type="text"]:focus{
       </div>
       <div class="file-info" id="fileInfo"></div>
 
-      <label>Whisper Model Override</label>
-      <select id="whisperOverride">
-        <option value="">— use server default —</option>
-        <option value="tiny">tiny (fastest)</option>
-        <option value="base">base</option>
-        <option value="small">small</option>
-        <option value="medium">medium</option>
-        <option value="large">large (best quality)</option>
+      <label>Transcription Provider</label>
+      <select id="transcriptProvider" onchange="onTranscriptProviderChange()">
+        <option value="openai">OpenAI</option>
+        <option value="gemini">Google Gemini</option>
       </select>
+
+      <label>Transcription Model</label>
+      <select id="transcriptModel">
+        <option value="gpt-4o-mini-transcribe">gpt-4o-mini-transcribe (2025-12-15) — ★ recommended, best Khmer</option>
+        <option value="gpt-4o-transcribe">gpt-4o-transcribe — high accuracy, Khmer ✓</option>
+        <option value="whisper-1">whisper-1 — legacy, reliable fallback</option>
+      </select>
+      <div class="model-note" id="transcriptModelNote">★ gpt-4o-mini-transcribe (Dec 2025) is now recommended by OpenAI — 89% fewer hallucinations vs whisper-1, best Khmer accuracy.</div>
 
       <div class="btn-row">
         <button class="btn btn-primary" id="transcribeBtn" onclick="doTranscribeAndTranslate()">▶ Transcribe &amp; Translate</button>
@@ -267,9 +139,7 @@ select:focus,textarea:focus,input[type="text"]:focus{
     </div>
   </div>
 
-  <!--
-       CARD 2 — MANUAL TRANSLATE
-  -->
+  <!-- CARD 2: MANUAL TRANSLATE  -->
   <div class="card">
     <div class="card-hdr">
       <div class="card-icon ic-gold">🔄</div>
@@ -280,18 +150,32 @@ select:focus,textarea:focus,input[type="text"]:focus{
       <label>Text to Translate</label>
       <textarea id="translateText" placeholder="Paste English or Khmer text here…"></textarea>
 
-      <label>Translation Direction</label>
+      <label>Direction</label>
       <div class="dir-toggle">
         <select id="dirFrom">
           <option value="en">English</option>
           <option value="km">Khmer</option>
         </select>
-        <button class="swap-btn" onclick="swapDirection()" title="Swap direction">⇄</button>
+        <button class="swap-btn" onclick="swapDirection()" title="Swap">⇄</button>
         <select id="dirTo">
           <option value="km">Khmer</option>
           <option value="en">English</option>
         </select>
       </div>
+
+      <label>Translation Provider</label>
+      <select id="translateProvider" onchange="onTranslateProviderChange()">
+        <option value="openai">OpenAI GPT</option>
+        <option value="gemini">Google Gemini</option>
+      </select>
+
+      <label>Translation Model</label>
+      <select id="translateModel">
+        <option value="gpt-4.1">gpt-4.1 — ★ latest flagship, best quality</option>
+        <option value="gpt-4.1-mini">gpt-4.1-mini — fast &amp; cost-efficient</option>
+        <option value="gpt-4o">gpt-4o — reliable, great Khmer</option>
+        <option value="gpt-4o-mini">gpt-4o-mini — lightweight option</option>
+      </select>
 
       <div class="btn-row">
         <button class="btn btn-primary" id="translateBtn" onclick="doManualTranslate()">▶ Translate</button>
@@ -304,147 +188,164 @@ select:focus,textarea:focus,input[type="text"]:focus{
     </div>
   </div>
 
-  <!-- 
-       CARD 3 — MODEL & API CONFIG (full)
-  -->
+  <!--  CARD 3: API KEY CONFIG  -->
   <div class="card full">
     <div class="card-hdr">
       <div class="card-icon ic-blue">⚙</div>
-      <span class="card-title">Model &amp; API Configuration</span>
+      <span class="card-title">API Keys &amp; Configuration</span>
     </div>
     <div class="card-body">
 
-      <div class="tab-row">
-        <button class="tab active" onclick="switchTab('status', this)">Status</button>
-        <button class="tab" onclick="switchTab('whisper', this)">Whisper</button>
-        <button class="tab" onclick="switchTab('provider', this)">Translation Provider</button>
+      <div class="warn">⚠️ API keys are stored only in memory (this browser tab). They are never saved to disk or sent anywhere except the official API endpoints. Refresh the page to clear them.</div>
+
+      <div class="cfg-grid">
+        <div>
+          <label style="margin-top:0">OpenAI API Key</label>
+          <div class="key-row">
+            <input type="password" id="openaiKey" placeholder="sk-…" oninput="saveKeys()">
+            <button class="key-toggle" onclick="toggleVisibility('openaiKey')">show</button>
+          </div>
+        </div>
+        <div>
+          <label style="margin-top:0">Google Gemini API Key</label>
+          <div class="key-row">
+            <input type="password" id="geminiKey" placeholder="AIza…" oninput="saveKeys()">
+            <button class="key-toggle" onclick="toggleVisibility('geminiKey')">show</button>
+          </div>
+        </div>
       </div>
 
-      <!-- TAB: STATUS -->
-      <div id="tab-status">
-        <div class="cfg-grid">
-          <div class="cfg-card">
-            <div class="lbl">Whisper Model</div>
-            <div class="val" id="sv-whisper">—</div>
-          </div>
-          <div class="cfg-card">
-            <div class="lbl">Provider</div>
-            <div class="val" id="sv-provider">—</div>
-          </div>
-          <div class="cfg-card">
-            <div class="lbl">LLM Model</div>
-            <div class="val" id="sv-model">—</div>
-          </div>
-        </div>
-        <div class="btn-row">
-          <button class="btn btn-ghost" onclick="doFetchModel()">↻ Refresh Status</button>
-        </div>
-        <div class="result-box" id="modelResult" style="margin-top:0.75rem">Click Refresh Status to see active config…<button class="copy-btn" onclick="copyResult('modelResult')">copy</button></div>
-      </div>
-
-      <!-- TAB: WHISPER -->
-      <div id="tab-whisper" style="display:none">
-        <div class="hint">
-          Change the Whisper model used for transcription. Larger models are more accurate but slower on CPU. Changes take effect on the next transcription request.
-        </div>
-        <label>Select Whisper Model</label>
-        <select id="cfgWhisper">
-          <option value="">— keep current —</option>
-          <option value="tiny">tiny — fastest, lower accuracy</option>
-          <option value="base">base — good balance</option>
-          <option value="small">small</option>
-          <option value="medium">medium</option>
-          <option value="large">large — best accuracy, slowest</option>
-        </select>
-        <div class="btn-row">
-          <button class="btn btn-primary" onclick="saveConfig('whisper')"> Save Whisper Model</button>
-        </div>
-        <div class="result-box" id="whisperSaveResult" style="margin-top:0.75rem;display:none"></div>
-      </div>
-
-      <!-- TAB: PROVIDER -->
-      <div id="tab-provider" style="display:none">
-        <div class="hint">
-          Switch translation providers at runtime — no server restart needed.
-          API keys must be set in your <code>.env</code> file before starting the server.
-        </div>
-        <div class="row2">
-          <div>
-            <label>Translation Provider</label>
-            <select id="cfgProvider" onchange="toggleProviderFields()">
-              <option value="">— keep current —</option>
-              <option value="google">Google Translate (free, no key)</option>
-              <option value="openai">OpenAI (API key required)</option>
-              <option value="gemini">Gemini (API key required)</option>
-            </select>
-          </div>
-          <div id="openaiModelWrap">
-            <label>OpenAI / LLM Model</label>
-            <select id="cfgOpenAIModel">
-              <option value="">— keep current —</option>
-              <option value="gpt-4o">gpt-4o</option>
-              <option value="gpt-4-turbo">gpt-4-turbo</option>
-              <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
-            </select>
-          </div>
-        </div>
-        <div class="btn-row">
-          <button class="btn btn-primary" onclick="saveConfig('provider')"> Save Provider Config</button>
-        </div>
-        <div class="result-box" id="providerSaveResult" style="margin-top:0.75rem;display:none"></div>
+      <div class="divider"></div>
+      <div class="cfg-grid" id="statusCards">
+        <div class="cfg-card"><div class="lbl">Transcription</div><div class="val" id="sv-transcript">OpenAI | gpt-4o-mini-transcribe</div></div>
+        <div class="cfg-card"><div class="lbl">Translation</div><div class="val" id="sv-translate">OpenAI | gpt-4.1</div></div>
+        <div class="cfg-card"><div class="lbl">OpenAI Key</div><div class="val" id="sv-openai-key" style="color:var(--muted)">not set</div></div>
+        <div class="cfg-card"><div class="lbl">Gemini Key</div><div class="val" id="sv-gemini-key" style="color:var(--muted)">not set</div></div>
       </div>
 
     </div>
   </div>
 
-</div><!-- /grid -->
+</div>
 
 <script>
-// HELPERS
+// KEY STORAGE 
+let OPENAI_KEY = '';
+let GEMINI_KEY = '';
 
-function setResult(id, text, state) {
-  const box = document.getElementById(id);
-  if (!box) return;
-  box.style.display = 'block';
-  const btn = box.querySelector('.copy-btn');
-  box.className = 'result-box' + (state ? ' ' + state : '');
-  if (btn) box.appendChild(btn); // re-attach so it's last
-  // Clear text nodes only
-  Array.from(box.childNodes).forEach(n => {
-    if (n.nodeType === Node.TEXT_NODE) box.removeChild(n);
-  });
-  box.insertBefore(document.createTextNode(text), btn || null);
+function saveKeys() {
+  OPENAI_KEY = document.getElementById('openaiKey').value.trim();
+  GEMINI_KEY = document.getElementById('geminiKey').value.trim();
+  document.getElementById('sv-openai-key').textContent = OPENAI_KEY ? '••••••' + OPENAI_KEY.slice(-4) : 'not set';
+  document.getElementById('sv-openai-key').style.color = OPENAI_KEY ? 'var(--green)' : 'var(--muted)';
+  document.getElementById('sv-gemini-key').textContent = GEMINI_KEY ? '••••••' + GEMINI_KEY.slice(-4) : 'not set';
+  document.getElementById('sv-gemini-key').style.color = GEMINI_KEY ? 'var(--green)' : 'var(--muted)';
 }
 
-function setBtn(id, disabled, label) {
-  const b = document.getElementById(id);
-  if (!b) return;
-  b.disabled = disabled;
-  b.textContent = label;
+function toggleVisibility(id) {
+  const el = document.getElementById(id);
+  const btn = el.nextElementSibling;
+  if (el.type === 'password') { el.type = 'text'; btn.textContent = 'hide'; }
+  else { el.type = 'password'; btn.textContent = 'show'; }
+}
+
+// MODEL LISTS
+const TRANSCRIPT_MODELS = {
+  openai: [
+    { value: 'gpt-4o-mini-transcribe', label: 'gpt-4o-mini-transcribe (2025-12-15) — ★ recommended, best Khmer' },
+    { value: 'gpt-4o-transcribe',      label: 'gpt-4o-transcribe — high accuracy, Khmer ✓' },
+    { value: 'whisper-1',              label: 'whisper-1 — legacy, reliable fallback' },
+  ],
+  gemini: [
+    { value: 'gemini-2.5-flash',       label: 'gemini-2.5-flash — ★ recommended, fast & accurate' },
+    { value: 'gemini-2.5-pro',         label: 'gemini-2.5-pro — highest quality, longer audio' },
+    { value: 'gemini-2.0-flash',       label: 'gemini-2.0-flash — previous gen, still solid' },
+  ]
+};
+
+const TRANSCRIPT_NOTES = {
+  openai: '★ gpt-4o-mini-transcribe (Dec 2025) is now recommended by OpenAI — 89% fewer hallucinations vs whisper-1, best Khmer accuracy.',
+  gemini: '★ gemini-2.5-flash is the current stable model — best price/performance with strong Khmer support. gemini-2.0-flash is being deprecated for new projects.'
+};
+
+const TRANSLATE_MODELS = {
+  openai: [
+    { value: 'gpt-4.1',      label: 'gpt-4.1 — ★ latest flagship, best quality' },
+    { value: 'gpt-4.1-mini', label: 'gpt-4.1-mini — fast & cost-efficient' },
+    { value: 'gpt-4o',       label: 'gpt-4o — reliable, great Khmer' },
+    { value: 'gpt-4o-mini',  label: 'gpt-4o-mini — lightweight option' },
+  ],
+  gemini: [
+    { value: 'gemini-2.5-flash', label: 'gemini-2.5-flash — ★ recommended, fast' },
+    { value: 'gemini-2.5-pro',   label: 'gemini-2.5-pro — best quality' },
+    { value: 'gemini-2.0-flash', label: 'gemini-2.0-flash — previous gen' },
+  ]
+};
+
+function populateSelect(id, options) {
+  const sel = document.getElementById(id);
+  sel.innerHTML = options.map(o => `<option value="${o.value}">${o.label}</option>`).join('');
+}
+
+function onTranscriptProviderChange() {
+  const p = document.getElementById('transcriptProvider').value;
+  populateSelect('transcriptModel', TRANSCRIPT_MODELS[p]);
+  document.getElementById('transcriptModelNote').textContent = TRANSCRIPT_NOTES[p];
+  updateStatusCards();
+}
+
+function onTranslateProviderChange() {
+  const p = document.getElementById('translateProvider').value;
+  populateSelect('translateModel', TRANSLATE_MODELS[p]);
+  updateStatusCards();
+}
+
+function updateStatusCards() {
+  const tp = document.getElementById('transcriptProvider').value;
+  const tm = document.getElementById('transcriptModel').value;
+  const lp = document.getElementById('translateProvider').value;
+  const lm = document.getElementById('translateModel').value;
+  document.getElementById('sv-transcript').textContent = (tp === 'openai' ? 'OpenAI' : 'Gemini') + ' | ' + tm;
+  document.getElementById('sv-translate').textContent  = (lp === 'openai' ? 'OpenAI' : 'Gemini') + ' | ' + lm;
+}
+
+document.getElementById('transcriptModel').addEventListener('change', updateStatusCards);
+document.getElementById('translateModel').addEventListener('change', updateStatusCards);
+
+// HELPERS
+function setResult(id, text, state) {
+  const box = document.getElementById(id);
+  const btn = box.querySelector('.copy-btn');
+  box.className = 'result-box' + (state ? ' ' + state : '');
+  box.textContent = text;
+  if (btn) box.appendChild(btn);
 }
 
 function copyResult(id) {
   const box = document.getElementById(id);
   const btn = box.querySelector('.copy-btn');
-  const text = (box.innerText || box.textContent)
-    .replace(/^copy$|^copied!$/gm, '').trim();
+  const text = box.textContent.replace(/^copy$|^copied!$/gm, '').trim();
   navigator.clipboard.writeText(text).then(() => {
     if (btn) { btn.textContent = 'copied!'; setTimeout(() => btn.textContent = 'copy', 1600); }
   });
 }
 
-//  TAB SWITCHER 
-
-function switchTab(name, el) {
-  ['status', 'whisper', 'provider'].forEach(t => {
-    document.getElementById('tab-' + t).style.display = (t === name) ? 'block' : 'none';
-  });
-  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
+function setBtn(id, disabled, label) {
+  const b = document.getElementById(id);
+  b.disabled = disabled;
+  b.textContent = label;
 }
 
-// FILE DROP ZONE
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
 
+//  FILE DROP 
 function onFileSelect(input) {
   const fi = document.getElementById('fileInfo');
   if (input.files[0]) {
@@ -458,13 +359,10 @@ const dropZone = document.getElementById('dropZone');
 dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('over'); });
 dropZone.addEventListener('dragleave', () => dropZone.classList.remove('over'));
 dropZone.addEventListener('drop', e => {
-  e.preventDefault();
-  dropZone.classList.remove('over');
+  e.preventDefault(); dropZone.classList.remove('over');
   const f = e.dataTransfer.files[0];
   if (f) {
-    // Assign to file input
-    const dt = new DataTransfer();
-    dt.items.add(f);
+    const dt = new DataTransfer(); dt.items.add(f);
     document.getElementById('audioFile').files = dt.files;
     onFileSelect({ files: [f] });
   }
@@ -473,134 +371,223 @@ dropZone.addEventListener('drop', e => {
 function clearTranscribe() {
   document.getElementById('audioFile').value = '';
   document.getElementById('fileInfo').style.display = 'none';
-  document.getElementById('fileInfo').innerHTML = '';
   setResult('transcribeResult', 'Upload a file and click Transcribe & Translate…', '');
   setResult('autoTranslateResult', 'Translation will appear here after transcription…', '');
 }
 
-//  DIRECTION SWAP 
-
 function swapDirection() {
-  const f = document.getElementById('dirFrom');
-  const t = document.getElementById('dirTo');
-  const tmp = f.value;
-  f.value = t.value;
-  t.value = tmp;
+  const f = document.getElementById('dirFrom'), t = document.getElementById('dirTo');
+  const tmp = f.value; f.value = t.value; t.value = tmp;
 }
 
-// TRANSCRIBE + AUTO-TRANSLATE 
+//  TRANSCRIPTION 
+async function transcribeOpenAI(file, model) {
+  if (!OPENAI_KEY) throw new Error('OpenAI API key not set. Enter it in the configuration card below.');
 
+  const fd = new FormData();
+  fd.append('file', file, file.name);
+  fd.append('model', model);
+
+  // verbose_json is only supported by whisper-1.
+  // gpt-4o-transcribe and gpt-4o-mini-transcribe only accept 'json' or 'text'.
+  const isWhisper = model === 'whisper-1';
+  fd.append('response_format', isWhisper ? 'verbose_json' : 'json');
+
+  const r = await fetch('https://api.openai.com/v1/audio/transcriptions', {
+    method: 'POST',
+    headers: { Authorization: 'Bearer ' + OPENAI_KEY },
+    body: fd
+  });
+
+  const data = await r.json();
+  if (!r.ok) throw new Error(data.error?.message || JSON.stringify(data));
+
+  const transcript = data.text || '';
+
+  // whisper-1 verbose_json returns data.language; for newer models detect via Unicode
+  let detected_language;
+  if (isWhisper && data.language) {
+    detected_language = data.language;
+  } else {
+    detected_language = /[\u1780-\u17FF]/.test(transcript) ? 'km' : 'en';
+  }
+
+  return { transcript, detected_language };
+}
+
+async function transcribeGemini(file, model) {
+  if (!GEMINI_KEY) throw new Error('Gemini API key not set. Enter it in the configuration card below.');
+
+  const mimeType = file.type || 'audio/mpeg';
+  const base64Audio = await toBase64(file);
+
+  const body = {
+    contents: [{
+      parts: [
+        {
+          inline_data: { mime_type: mimeType, data: base64Audio }
+        },
+        {
+          text: 'Please transcribe this audio file exactly as spoken. If the audio is in Khmer (Cambodian), transcribe in Khmer script. If in English, transcribe in English. Return ONLY the transcription text and nothing else.'
+        }
+      ]
+    }]
+  };
+
+  const r = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_KEY}`,
+    { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }
+  );
+
+  const data = await r.json();
+  if (!r.ok) throw new Error(data.error?.message || JSON.stringify(data));
+
+  const transcript = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+
+  // Detect language: check for Khmer Unicode range (U+1780–U+17FF)
+  const isKhmer = /[\u1780-\u17FF]/.test(transcript);
+  return { transcript, detected_language: isKhmer ? 'km' : 'en' };
+}
+
+//  TRANSLATION 
+async function translateOpenAI(text, direction, model) {
+  if (!OPENAI_KEY) throw new Error('OpenAI API key not set. Enter it in the configuration card below.');
+
+  const isKmToEn = direction === 'km_to_en';
+  const systemPrompt = isKmToEn
+    ? 'You are an expert Khmer-to-English translator. Translate the given Khmer text into natural, fluent English. Return only the translation.'
+    : 'You are an expert English-to-Khmer translator. Translate the given English text into natural, fluent Khmer. Return only the translation.';
+
+  const r = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + OPENAI_KEY },
+    body: JSON.stringify({
+      model: model,
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: text }
+      ],
+      temperature: 0.2
+    })
+  });
+
+  const data = await r.json();
+  if (!r.ok) throw new Error(data.error?.message || JSON.stringify(data));
+  return data.choices?.[0]?.message?.content?.trim() || '';
+}
+
+async function translateGemini(text, direction, model) {
+  if (!GEMINI_KEY) throw new Error('Gemini API key not set. Enter it in the configuration card below.');
+
+  const isKmToEn = direction === 'km_to_en';
+  const prompt = isKmToEn
+    ? `Translate the following Khmer text into natural, fluent English. Return only the translation.\n\n${text}`
+    : `Translate the following English text into natural, fluent Khmer. Return only the translation.\n\n${text}`;
+
+  const body = {
+    contents: [{ parts: [{ text: prompt }] }],
+    generationConfig: { temperature: 0.2 }
+  };
+
+  const r = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_KEY}`,
+    { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }
+  );
+
+  const data = await r.json();
+  if (!r.ok) throw new Error(data.error?.message || JSON.stringify(data));
+  return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '';
+}
+
+//  MAIN ACTIONS 
 async function doTranscribeAndTranslate() {
   const file = document.getElementById('audioFile').files[0];
   if (!file) { alert('Please select an audio file first.'); return; }
 
-  const model = document.getElementById('whisperOverride').value;
+  const tProvider = document.getElementById('transcriptProvider').value;
+  const tModel    = document.getElementById('transcriptModel').value;
 
   setBtn('transcribeBtn', true, '⏳ Transcribing…');
-  setResult('transcribeResult', '⏳ Transcribing audio, please wait…', 'loading');
+  setResult('transcribeResult', '⏳ Transcribing audio — please wait…', 'loading');
   setResult('autoTranslateResult', 'Waiting for transcript…', 'loading');
 
   let transcript = '', detectedLang = '';
 
-  // Step 1: Transcribe
   try {
-    const fd = new FormData();
-    fd.append('file', file);
-    if (model) fd.append('model', model);
-
-    const r = await fetch('/transcribe/', { method: 'POST', body: fd });
-    const raw = await r.text();
-
-    if (!r.ok) {
-      setResult('transcribeResult', '❌ Transcription error ' + r.status + ':\n' + raw, 'error');
-      setResult('autoTranslateResult', '⚠️ Cannot translate — transcription failed.', 'error');
-      setBtn('transcribeBtn', false, ' Transcribe & Translate');
-      return;
+    let res;
+    if (tProvider === 'openai') {
+      res = await transcribeOpenAI(file, tModel);
+    } else {
+      res = await transcribeGemini(file, tModel);
     }
+    transcript    = res.transcript;
+    detectedLang  = res.detected_language;
 
-    const d = JSON.parse(raw);
-    transcript   = d.transcript;
-    detectedLang = d.detected_language;
-
-    setResult(
-      'transcribeResult',
-      'Language detected: ' + detectedLang.toUpperCase() + '\n\n' + transcript,
-      'success'
-    );
+    setResult('transcribeResult',
+      'Language detected: ' + detectedLang.toUpperCase() + '\n\n' + transcript, 'success');
   } catch (e) {
-    setResult('transcribeResult', '❌ Network error: ' + e.message, 'error');
+    setResult('transcribeResult', '❌ Transcription failed:\n' + e.message, 'error');
     setResult('autoTranslateResult', '⚠️ Cannot translate — transcription failed.', 'error');
     setBtn('transcribeBtn', false, '▶ Transcribe & Translate');
     return;
   }
 
-  // Step 2: Auto-translate
+  if (!transcript.trim()) {
+    setResult('autoTranslateResult', '⚠️ Transcript is empty — nothing to translate.', 'error');
+    setBtn('transcribeBtn', false, '▶ Transcribe & Translate');
+    return;
+  }
+
+  // Auto-translate using the translate card's selected provider/model
   setBtn('transcribeBtn', true, '⏳ Translating…');
   setResult('autoTranslateResult', '⏳ Translating transcript…', 'loading');
 
   const direction = detectedLang === 'km' ? 'km_to_en' : 'en_to_km';
   const dirLabel  = direction === 'km_to_en' ? 'Khmer → English' : 'English → Khmer';
 
+  const lProvider = document.getElementById('translateProvider').value;
+  const lModel    = document.getElementById('translateModel').value;
+
   try {
-    const r = await fetch('/translate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text: transcript, direction })
-    });
-
-    const raw = await r.text();
-
-    if (!r.ok) {
-      setResult('autoTranslateResult', '❌ Translation error ' + r.status + ':\n' + raw, 'error');
-      return;
+    let translated;
+    if (lProvider === 'openai') {
+      translated = await translateOpenAI(transcript, direction, lModel);
+    } else {
+      translated = await translateGemini(transcript, direction, lModel);
     }
-
-    const d = JSON.parse(raw);
-    setResult(
-      'autoTranslateResult',
-      '(' + dirLabel + ')\n\n' + (d.translated || '(empty)'),
-      'success'
-    );
+    setResult('autoTranslateResult', '(' + dirLabel + ')\n\n' + (translated || '(empty)'), 'success');
   } catch (e) {
-    setResult('autoTranslateResult', '❌ Network error: ' + e.message, 'error');
+    setResult('autoTranslateResult', '❌ Translation failed:\n' + e.message, 'error');
   } finally {
     setBtn('transcribeBtn', false, '▶ Transcribe & Translate');
   }
 }
 
-// MANUAL TRANSLATE 
-
 async function doManualTranslate() {
   const text = document.getElementById('translateText').value.trim();
-  const from = document.getElementById('dirFrom').value;
-  const to   = document.getElementById('dirTo').value;
+  const from  = document.getElementById('dirFrom').value;
+  const to    = document.getElementById('dirTo').value;
 
   if (!text) { alert('Please enter text to translate.'); return; }
   if (from === to) { alert('Source and target languages must be different.'); return; }
 
   const direction = from + '_to_' + to;
+  const lProvider = document.getElementById('translateProvider').value;
+  const lModel    = document.getElementById('translateModel').value;
 
   setBtn('translateBtn', true, '⏳ Translating…');
   setResult('translateResult', '⏳ Translating…', 'loading');
 
   try {
-    const r = await fetch('/translate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text, direction })
-    });
-
-    const raw = await r.text();
-
-    if (!r.ok) {
-      setResult('translateResult', '❌ Error ' + r.status + ':\n' + raw, 'error');
-      return;
+    let translated;
+    if (lProvider === 'openai') {
+      translated = await translateOpenAI(text, direction, lModel);
+    } else {
+      translated = await translateGemini(text, direction, lModel);
     }
-
-    const d = JSON.parse(raw);
-    setResult('translateResult', d.translated || '(empty response)', 'success');
+    setResult('translateResult', translated || '(empty response)', 'success');
   } catch (e) {
-    setResult('translateResult', '❌ Network error: ' + e.message, 'error');
+    setResult('translateResult', '❌ Error:\n' + e.message, 'error');
   } finally {
     setBtn('translateBtn', false, '▶ Translate');
   }
@@ -611,70 +598,9 @@ function clearManual() {
   setResult('translateResult', 'Result will appear here…', '');
 }
 
-// ── MODEL CONFIG ─────────────────────────────────────
-
-function toggleProviderFields() {
-  const p = document.getElementById('cfgProvider').value;
-  document.getElementById('openaiModelWrap').style.opacity = (p === 'openai') ? '1' : '0.45';
-}
-
-async function doFetchModel() {
-  setResult('modelResult', '⏳ Fetching current config…', 'loading');
-  try {
-    // NOTE: update this path to match your actual FastAPI router prefix
-    // e.g. if router has prefix="/api" → use "/api/models"
-    const r = await fetch('/models');
-    const d = await r.json();
-
-    document.getElementById('sv-whisper').textContent  = d.whisper_model        || '—';
-    document.getElementById('sv-provider').textContent = d.translation_provider || '—';
-    document.getElementById('sv-model').textContent    = d.openai_model         || d.gemini_model || '—';
-
-    setResult('modelResult', JSON.stringify(d, null, 2), 'success');
-  } catch (e) {
-    setResult('modelResult', '❌ ' + e.message, 'error');
-  }
-}
-
-async function saveConfig(scope) {
-  const body = {};
-  let resultId = 'modelResult';
-
-  if (scope === 'whisper') {
-    resultId = 'whisperSaveResult';
-    const w = document.getElementById('cfgWhisper').value;
-    if (!w) { alert('Please select a Whisper model first.'); return; }
-    body.whisper_model = w;
-  } else {
-    resultId = 'providerSaveResult';
-    const p  = document.getElementById('cfgProvider').value;
-    const om = document.getElementById('cfgOpenAIModel').value;
-    if (!p) { alert('Please select a provider first.'); return; }
-    body.translation_provider = p;
-    if (om) body.openai_model = om;
-  }
-
-  setResult(resultId, '⏳ Saving…', 'loading');
-
-  try {
-    const r = await fetch('/models', {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    });
-    const d = await r.json();
-    // Update status cards
-    document.getElementById('sv-whisper').textContent  = d.whisper_model        || '—';
-    document.getElementById('sv-provider').textContent = d.translation_provider || '—';
-    document.getElementById('sv-model').textContent    = d.openai_model         || d.gemini_model || '—';
-    setResult(resultId, '✅ Saved:\n\n' + JSON.stringify(d, null, 2), 'success');
-  } catch (e) {
-    setResult(resultId, '❌ ' + e.message, 'error');
-  }
-}
-
-// Auto-fetch on page load
-doFetchModel();
+// Init
+onTranscriptProviderChange();
+onTranslateProviderChange();
 </script>
 </body>
 </html>
