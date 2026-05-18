@@ -118,11 +118,11 @@ select:focus,textarea:focus,input:focus{border-color:var(--gold);box-shadow:0 0 
 
       <label>Transcription Model</label>
       <select id="transcriptModel">
-        <option value="gpt-4o-mini-transcribe">gpt-4o-mini-transcribe (2025-12-15) — ★ recommended, best Khmer</option>
+        <option value="gpt-4o-mini-transcribe">gpt-4o-mini-transcribe (2025-12-15) —  recommended, best Khmer</option>
         <option value="gpt-4o-transcribe">gpt-4o-transcribe — high accuracy, Khmer ✓</option>
         <option value="whisper-1">whisper-1 — legacy, reliable fallback</option>
       </select>
-      <div class="model-note" id="transcriptModelNote">★ gpt-4o-mini-transcribe (Dec 2025) is now recommended by OpenAI — 89% fewer hallucinations vs whisper-1, best Khmer accuracy.</div>
+      <div class="model-note" id="transcriptModelNote"> gpt-4o-mini-transcribe (Dec 2025) is now recommended by OpenAI — 89% fewer hallucinations vs whisper-1, best Khmer accuracy.</div>
 
       <div class="btn-row">
         <button class="btn btn-primary" id="transcribeBtn" onclick="doTranscribeAndTranslate()">▶ Transcribe &amp; Translate</button>
@@ -171,7 +171,7 @@ select:focus,textarea:focus,input:focus{border-color:var(--gold);box-shadow:0 0 
 
       <label>Translation Model</label>
       <select id="translateModel">
-        <option value="gpt-4.1">gpt-4.1 — ★ latest flagship, best quality</option>
+        <option value="gpt-4.1">gpt-4.1 —  latest flagship, best quality</option>
         <option value="gpt-4.1-mini">gpt-4.1-mini — fast &amp; cost-efficient</option>
         <option value="gpt-4o">gpt-4o — reliable, great Khmer</option>
         <option value="gpt-4o-mini">gpt-4o-mini — lightweight option</option>
