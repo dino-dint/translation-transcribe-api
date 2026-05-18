@@ -1,0 +1,350 @@
+<!-- ## Installation
+
+### Prerequisites
+- Python 3.9+
+- Docker (optional, for containerization)
+- 4GB+ RAM (for Whisper models)
+
+### Local Setup (Without Docker)
+
+1. **Clone the repository**
+   ```bash
+   git clone <your-repo-url>
+   cd khmer-english-ai
+   ```
+
+2. **Create virtual environment**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Run the application**
+   ```bash
+   python main.py
+   # Or with Uvicorn directly:
+   uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+   ```
+
+5. **Access the UI**
+   - Open browser: `http://localhost:8000`
+
+### Docker Setup
+
+1. **Build the image**
+   ```bash
+   docker build -t khmer-english-ai .
+   ```
+
+2. **Run the container**
+   ```bash
+   docker run -d -p 8000:8000 --name khmer-app khmer-english-ai
+   ```
+
+3. **Access the UI**
+   - Open browser: `http://localhost:8000`
+
+### Docker Compose (Recommended)
+
+1. **Start services**
+   ```bash
+   docker-compose up -d
+   ```
+
+2. **Stop services**
+   ```bash
+   docker-compose down
+   ```
+
+3. **View logs**
+   ```bash
+   docker-compose logs -f
+   ```
+
+## API Endpoints
+
+### 1. Transcribe Audio
+**POST** `/transcribe/`
+
+Transcribe an audio file and detect language.
+
+**Request:**
+```bash
+curl -X POST "http://localhost:8000/transcribe/" \
+  -F "file=@audio.mp3" \
+  -F "model=base"  # optional: tiny, base, small, medium, large
+```
+
+**Response:**
+```json
+{
+  "detected_language": "en",
+  "transcript": "Hello, this is a test transcription."
+}
+```
+
+### 2. Manual Translation
+**POST** `/translate`
+
+Translate text between English and Khmer.
+
+**Request:**
+```bash
+curl -X POST "http://localhost:8000/translate" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text": "Hello world",
+    "direction": "en_to_km"
+  }'
+```
+
+**Response:**
+```json
+{
+  "original": "Hello world",
+  "translated": "សួស្តី​ពិភពលោក",
+  "direction": "en_to_km"
+}
+```
+
+**Direction options:**
+- `en_to_km` - English → Khmer
+- `km_to_en` - Khmer → English
+
+### 3. Transcribe & Auto-Translate (Combined)
+**POST** `/transcribe-and-translate`
+
+Transcribe audio and automatically translate to opposite language.
+
+**Request:**
+```bash
+curl -X POST "http://localhost:8000/transcribe-and-translate" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "transcript": "Hello world",
+    "detected_language": "en"
+  }'
+```
+
+**Response:**
+```json
+{
+  "transcript": "Hello world",
+  "detected_language": "en",
+  "translation": "សួស្តី​ពិភពលោក",
+  "translation_direction": "en_to_km"
+}
+```
+
+### 4. Get Current Models
+**GET** `/models`
+
+Get currently loaded Whisper model.
+
+**Response:**
+```json
+{
+  "whisper_model": "base"
+}
+```
+
+### 5. Update Models
+**PATCH** `/models`
+
+Change Whisper model at runtime (no restart needed).
+
+**Request:**
+```bash
+curl -X PATCH "http://localhost:8000/models" \
+  -H "Content-Type: application/json" \
+  -d '{"whisper_model": "small"}'
+```
+
+**Response:**
+```json
+{
+  "whisper_model": "small"
+}
+```
+
+## Web UI Usage
+
+### Transcribe + Auto-Translate
+1. Upload an audio file
+2. (Optional) Select a Whisper model
+3. Click **"Transcribe & Translate"**
+4. See transcription + automatic translation displayed
+
+### Manual Translate
+1. Enter text in the textarea
+2. Select translation direction (English → Khmer or Khmer → English)
+3. Click **"Translate"**
+4. See result instantly
+
+### Model Configuration
+1. Select a Whisper model from dropdown
+2. Click **"Update Models"** to change at runtime
+3. Click **"Refresh Status"** to see current model
+
+## Configuration
+
+### Whisper Models
+
+Available models (faster-whisper):
+- `tiny` - Fastest, ~1GB VRAM, good for quick transcription
+- `base` - Default, ~1.5GB VRAM, balanced performance
+- `small` - Better accuracy, ~2GB VRAM
+- `medium` - High accuracy, ~5GB VRAM
+- `large` - Best accuracy, ~10GB VRAM (GPU recommended)
+
+**Default:** `base`
+
+Change in `app/config.py`:
+```python
+WHISPER_MODEL = "base"  # Change to your preferred model
+```
+
+### Environment Variables
+
+Create a `.env` file (if needed):
+```bash
+WHISPER_MODEL=base
+HOST=0.0.0.0
+PORT=8000
+```
+
+Load in `app/config.py`:
+```python
+from dotenv import load_dotenv
+load_dotenv()
+```
+
+## Dependencies
+
+See `requirements.txt`:
+```
+fastapi==0.104.1
+uvicorn==0.24.0
+faster-whisper==1.0.1
+deep-translator==1.11.4
+python-multipart==0.0.6
+```
+
+## Performance Tips
+
+- **First run**: Whisper will download model (~1-5GB depending on size)
+- **Audio processing**: CPU is fine, but GPU (CUDA) is much faster
+- **Model caching**: Models are cached in memory after first load
+- **Translations**: Google Translate is fast (~1-2 seconds per request)
+
+## Troubleshooting
+
+### Issue: "Module not found" error
+**Solution:**
+```bash
+pip install -r requirements.txt
+```
+
+### Issue: CORS errors from external network
+**Status:** ✅ Already enabled in `main.py`
+
+```python
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Accepts from any origin
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+```
+
+### Issue: Audio file not supported
+**Solution:** Whisper supports: MP3, WAV, M4A, FLAC, OGG
+- Convert your file to one of these formats
+- Use FFmpeg: `ffmpeg -i input.mp4 -q:a 0 -map a output.mp3`
+
+### Issue: Slow transcription
+**Solution:**
+- Use smaller model: `tiny` or `base`
+- Use GPU (if available): Modify `app/services/transcription_service.py`
+  ```python
+  WhisperModel(name, device="cuda", compute_type="float16")
+  ```
+
+### Issue: Memory issues with large models
+**Solution:**
+- Use smaller models (`tiny`, `base`)
+- Increase Docker memory: `docker run -m 4g ...`
+
+## Deployment
+
+### Public Access (Non-Network)
+
+#### Option 1: Cloud Deployment (Recommended)
+- Deploy to: Heroku, Railway, AWS, Google Cloud, DigitalOcean
+- Benefits: Easy scaling, automatic HTTPS, managed infrastructure
+
+#### Option 2: Port Forwarding (DIY)
+1. Configure router to forward port 8000 to your machine
+2. Share your public IP with users
+3. Security risk - not recommended for production
+
+#### Option 3: Ngrok (Easy Testing)
+```bash
+ngrok http 8000
+# Get public URL: https://xxxx-xx-xxx-xx-xx.ngrok.io
+```
+
+#### Option 4: VPN / Tailscale (Secure)
+- Use Tailscale for secure remote access
+- No port forwarding needed
+
+## License
+
+MIT License - Feel free to use and modify!
+
+## Contributing
+
+Contributions welcome! Please:
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/your-feature`
+3. Commit changes: `git commit -m "Add your feature"`
+4. Push: `git push origin feature/your-feature`
+5. Open a Pull Request
+
+## Support
+
+For issues, questions, or suggestions:
+- Open a GitHub Issue
+- Email: [your-email@example.com]
+
+## Changelog
+
+### v1.0.0 (Current)
+- ✅ Audio transcription with Whisper
+- ✅ English ↔ Khmer translation
+- ✅ Auto-translation on transcription
+- ✅ Runtime model switching
+- ✅ Modern web UI
+- ✅ Docker support
+- ✅ CORS enabled for external access
+
+## Future Enhancements
+
+- [ ] Support for more languages (Thai, Vietnamese, etc.)
+- [ ] Batch transcription/translation
+- [ ] Voice input for translation
+- [ ] Database to store transcriptions
+- [ ] User authentication
+- [ ] API rate limiting
+- [ ] Mobile app
+- [ ] Real-time transcription (streaming)
+
+---
+
+Made  for Khmer language processing -->
